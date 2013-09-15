@@ -18,13 +18,10 @@ class HDFSFileServiceTest extends FunSpec with ShouldMatchers {
       val testfileWriter = new BufferedWriter(new FileWriter(testfile))
       testfileWriter.write(testText)
       testfileWriter.close
-      val localCheckReader = new BufferedReader(new FileReader(testfileName))
-      localCheckReader.readLine should be(testText)
-      localCheckReader.readLine should be (null)
-      localCheckReader.close
       HDFSFileService.removeFile(testfileName)
       HDFSFileService.saveFile(testfileName)
       testfile.delete
+      testfile.exists should be(false)
 
       val outputStream = new FileOutputStream(new File(testfileName))
       val in = HDFSFileService.getFile(testfileName)
@@ -37,10 +34,10 @@ class HDFSFileServiceTest extends FunSpec with ShouldMatchers {
       outputStream.close
       in.close
 
-      val localCheckReader2 = new BufferedReader(new FileReader(testfileName))
-      localCheckReader2.readLine should be(testText)
-      localCheckReader2.readLine should be (null)
-      localCheckReader2.close
+      val localCheckReader = new BufferedReader(new FileReader(testfileName))
+      localCheckReader.readLine should be(testText)
+      localCheckReader.readLine should be (null)
+      localCheckReader.close
 
       testfile.delete
       HDFSFileService.removeFile(testfileName) should be(true)
