@@ -9,8 +9,8 @@ import org.apache.hadoop.fs._
 
 object HDFSFileService {
   private val conf = new Configuration()
-  private val hdfsCoreSitePath = "core-site.xml"
-  private val hdfsHDFSSitePath = "hdfs-site.xml"
+  private val hdfsCoreSitePath = new Path("core-site.xml")
+  private val hdfsHDFSSitePath = new Path("hdfs-site.xml")
 
   conf.addResource(hdfsCoreSitePath)
   conf.addResource(hdfsHDFSSitePath)

@@ -43,6 +43,8 @@ class HDFSFileServiceTest extends FunSpec with ShouldMatchers {
       checkbr.close
 
       testfile.delete
+
+      HDFSFileService.removeFile(testfileName) should be(true)
     }
   }
 }
